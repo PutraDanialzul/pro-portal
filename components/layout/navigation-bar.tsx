@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { supabaseClient } from "../../lib/supabase";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function NavigationBar(){
 
     const router = useRouter();
+    const pathname = usePathname();
     const [user, setUser] = useState(false);
 
     function signOut(){
@@ -24,7 +25,7 @@ export default function NavigationBar(){
                 setUser(false);
         }
         getUser();
-    }, [router]);
+    }, [router, pathname]);
 
     if(user) return (
         <nav>

@@ -11,11 +11,6 @@ export default function DashboardPage(){
     const [loading, setLoading] = useState(true);
     const [name, setName] = useState<String>("");
 
-    function signOut(){
-        supabaseClient.auth.signOut();
-        window.location.assign("login");
-    }
-
     useEffect(()=>{
         async function getUser(){
             const user = await supabaseClient.auth.getUser();
@@ -49,7 +44,6 @@ export default function DashboardPage(){
             <h1>Dashboard</h1>
             <p>Welcome {name} to the dashboard!</p>
             <p>Latest announcement: QWERTY</p>
-            <button id="sign-out-button" type="button" onClick={signOut}>Sign Out</button>
         </div>
     );
 }
