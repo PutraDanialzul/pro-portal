@@ -20,7 +20,7 @@ export default function DashboardPage(){
             }
             else{
                 setLoading(false);
-                alert("Welcome "+user.data.user.id+"!");
+                alert("Welcome "+user.data.user.email+"!");
             }
         }
         getUser()
@@ -37,6 +37,8 @@ export default function DashboardPage(){
     return (
         <div>
             <h1>Dashboard</h1>
+            <p>Welcome to the dashboard!</p>
+            <p>Latest announcement: QWERTY</p>
             <button id="sign-out-button" type="button" onClick={signOut}>Sign Out</button>
         </div>
     );
