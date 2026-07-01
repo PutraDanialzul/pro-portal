@@ -10,11 +10,16 @@ export const metadata: Metadata = {
 
 export default function Layout({children, }: {children: React.ReactNode}){
     return (
-    <html>
+    <html lang="en">
         <body>
-            <header>Pro-Portal</header>
+            <header id="main-header">
+                Pro-Portal
+                <nav id="nav-bar">
+                    <a href=""></a>
+                </nav>
+            </header>
             {children}
-            <footer>@Syntax Terror</footer>
+            <footer id="footer">@Syntax Terror</footer>
         </body>
     </html>
     );
