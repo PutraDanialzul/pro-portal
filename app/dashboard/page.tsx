@@ -37,7 +37,6 @@ export default function DashboardPage(){
 
     return (
         <div>
-            
             <h1>Dashboard</h1>
             <button id="sign-out-button" type="button" onClick={signOut}>Sign Out</button>
         </div>
