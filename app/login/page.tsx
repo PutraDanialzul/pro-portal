@@ -23,14 +23,14 @@ export default function LoginPage(){
             alert("Error: "+error.message);
         }
         else{
-            router.push("/dashboard");
+            router.replace("/dashboard");
         }
     }
 
     useEffect(()=>{
         async function checkUser(){
-            const user = await supabaseClient.auth.getUser();
-            if(user.data.user){
+            const {data:{user}} = await supabaseClient.auth.getUser();
+            if(user){
                 router.replace("/dashboard");
             }
         }
