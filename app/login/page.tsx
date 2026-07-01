@@ -42,11 +42,11 @@ export default function LoginPage(){
             <h1>Login Page</h1>
             <form onSubmit={login}>
                 <label htmlFor="email">Email: </label>
-                <input type="email" name="email" id="email"></input>
+                <input type="email" name="email" id="email" required></input>
                 <br></br>
                 <br></br>
                 <label htmlFor="password">Password: </label>
-                <input type="password" name="password" id="password"></input>
+                <input type="password" name="password" id="password" required></input>
                 <br></br>
                 <input type="submit" value="Log In"></input>
             </form>

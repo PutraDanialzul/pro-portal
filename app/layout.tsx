@@ -1,3 +1,4 @@
+import NavigationBar from "../components/layout/navigation-bar";
 import "./globals.css"
 import { Metadata } from "next";
 
@@ -8,15 +9,14 @@ export const metadata: Metadata = {
 };
 
 
-export default function Layout({children, }: {children: React.ReactNode}){
+export default function Layout({children}: {children: React.ReactNode}){
+    
     return (
     <html lang="en">
         <body>
             <header id="main-header">
                 Pro-Portal
-                <nav id="nav-bar">
-                    <a href=""></a>
-                </nav>
+                <NavigationBar></NavigationBar>
             </header>
             {children}
             <footer id="footer">@Syntax Terror</footer>
