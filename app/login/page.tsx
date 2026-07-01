@@ -3,8 +3,12 @@
 import "./login-style.css"
 
 import { supabaseClient } from "../../lib/supabase";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage(){
+
+    const router = useRouter();
 
     async function login(event:React.SubmitEvent<HTMLFormElement>){
         event.preventDefault();
@@ -19,9 +23,19 @@ export default function LoginPage(){
             alert("Error: "+error.message);
         }
         else{
-            window.location.assign("dashboard");
+            router.push("/dashboard");
         }
     }
+
+    useEffect(()=>{
+        async function checkUser(){
+            const user = await supabaseClient.auth.getUser();
+            if(user.data.user){
+                router.replace("/dashboard");
+            }
+        }
+        checkUser();
+    }, [router]);
 
     return (
         <div>
