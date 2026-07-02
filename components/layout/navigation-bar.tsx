@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import styles from "./header-style.module.css"
+
 import { supabaseClient } from "../../lib/supabase";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function NavigationBar(){
 
@@ -13,8 +14,8 @@ export default function NavigationBar(){
         router.push("/login");
     }
     return (
-        <nav id="nav-bar">
-            <button id="sign-out-button" onClick={signOut}>SIGN OUT</button>
+        <nav className={styles.navigationBar}>
+            <button className={styles.signOutButton} onClick={signOut}>SIGN OUT</button>
         </nav>
     );
 }

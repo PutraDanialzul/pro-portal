@@ -1,0 +1,14 @@
+.whiteFooter{
+    background-color: #faf9f6;
+    display: block;
+    padding: 10px;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.mainFooter{
+    padding: 10px;
+    text-align: center;
+    font-weight: bolder;
+    background-color: #FF9D9D;
+}

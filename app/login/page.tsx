@@ -1,14 +1,16 @@
 'use client';
 
-import "./login-style.css"
+import styles from "./login-style.module.css"
 
 import { supabaseClient } from "../../lib/supabase";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage(){
 
     const router = useRouter();
+
+    const [error, setError] = useState("");
 
     async function login(event:React.SubmitEvent<HTMLFormElement>){
         event.preventDefault();
@@ -20,7 +22,7 @@ export default function LoginPage(){
             password: password as string,
         });
         if(error){
-            alert("Error: "+error.message);
+            setError("Error: " + error.message);
         }
         else{
             router.replace("/dashboard");
@@ -35,25 +37,29 @@ export default function LoginPage(){
             }
         }
         checkUser();
+        setError("");
     }, [router]);
-
+    
     return (
-        <div id="login-window">
-            <div id="left-content">
-                <h1>Welcome Back!</h1>
-                <i id="quote">“believe you can and you’re halfway there”</i>
-            </div>
-            <div id="right-content">
-                <h1>Login Page</h1>
-                <form onSubmit={login}>
-                    <input type="email" name="email" id="email" placeholder="Email" required></input>
-                    <input type="password" name="password" id="password" placeholder="Password" required></input>
-                    <input type="submit" id="login-button" value="Log In"></input>
-                </form>
-                <center>
-                    <p>Don't have an account yet?</p>
-                    <a href="/sign-up">Sign up</a>
-                </center>
+        <div className={styles.loginWindow}>
+            { error.trim() ? <p className={styles.errorBanner}>{error}</p> : null }
+            <div className={styles.flexContainer}>
+                <div className={styles.leftContent}>
+                    <h1>Welcome Back!</h1>
+                    <i className={styles.quote}>“believe you can and you’re halfway there”</i>
+                </div>
+                <div className={styles.rightContent}>
+                    <h1>Login Page</h1>
+                    <form onSubmit={login}>
+                        <input type="email" name="email" className={styles.textInput} id="email" placeholder="Email" required></input>
+                        <input type="password" name="password" className={styles.textInput} id="password" placeholder="Password" required></input>
+                        <input type="submit" className={styles.loginButton} value="Log In"></input>
+                    </form>
+                    <center>
+                        <p>Don't have an account yet?</p>
+                        <a href="/sign-up">Sign up</a>
+                    </center>
+                </div>
             </div>
         </div>
     );

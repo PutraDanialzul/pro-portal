@@ -1,6 +1,6 @@
 'use client';
 
-import "./header-style.css"
+import styles from "./header-style.module.css"
 
 import NavigationBar from "./navigation-bar";
 import Logo from "../../logo.png";
@@ -15,11 +15,11 @@ export default function MainHeader(){
     const hide = hidePath.includes(pathname);
 
     if(!hide) return (
-        <header id="main-header">
-            <Image loading="eager" src={Logo} alt="The logo of the site" width="100" height="100"></Image>
-            <p id="org-name">Organisation's name</p>
+        <header className={styles.mainHeader}>
+            <Image loading="eager" src={Logo} className={styles.logo} alt="The logo of the site" width="100" height="100"></Image>
+            <p className={styles.organisationName}>Organisation's name</p>
             <NavigationBar></NavigationBar>
         </header>
     )
-    else return (<header id="main-header"></header>);
+    else return (<header className={styles.whiteHeader}></header>);
 }

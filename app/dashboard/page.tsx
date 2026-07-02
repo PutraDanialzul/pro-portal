@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { supabaseClient } from "../../lib/supabase";
-import { User } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 
 export default function DashboardPage(){
@@ -10,11 +9,6 @@ export default function DashboardPage(){
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     const [name, setName] = useState<String>("");
-
-    function signOut(){
-        supabaseClient.auth.signOut();
-        router.push("/login");
-    }
 
     useEffect(()=>{
         async function getUser(){

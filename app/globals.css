@@ -13,15 +13,3 @@ body{
     grid:
     'sidebar main';
 }
-
-#footer{
-    padding: 10px;
-    grid-area: 'footer';
-    text-align: center;
-    font-weight: bolder;
-    background-color: #FF9D9D;
-}
-
-#in-body{
-    border: double 5px black;
-}

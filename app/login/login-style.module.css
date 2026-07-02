@@ -1,28 +1,20 @@
-#in-body{
-    background-color: #ff9d9d;
+.loginWindow{
+    background-color: #faf9f6;
+    width: 70%;
+    padding: 0px;
+    border-radius: 20px;
+    margin:auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    overflow: hidden;
 }
 
-#main-header{
-    width:auto;
-    min-height: 40px;
-    display: block;
-    background-color: #faf9f6;
-}
-
-#footer{
-    background-color: #faf9f6;
-    display: block;
-}
-
-#login-window{
-    background-color: #faf9f6;
-    width: 80%;
-    padding: 10% 100px;
-    border-radius: 50px;
+.flexContainer{
     display: flex;
+    padding: 10% 50px;
 }
 
-input[type="email"],input[type="password"]{
+.textInput{
     background-color: #ced9e2;
     border: none;
     width: 100%;
@@ -35,19 +27,19 @@ input[type="email"],input[type="password"]{
     font-size: large;
 }
 
-#left-content{
+.leftContent{
     margin: auto;
     margin-right: 10px;
     flex: 50%;
     text-align: center;
 }
 
-#right-content{
+.rightContent{
     flex: 50%;
     margin-left: 10px;
 }
 
-#login-button{
+.loginButton{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     background-color: #fc8181;
     border: none;
@@ -60,18 +52,15 @@ input[type="email"],input[type="password"]{
     cursor: pointer;
 }
 
-#quote{
+.quote{
     font-family: "Lucida Handwriting", "Brush Script MT";
     font-size: x-large;
 }
 
-#content{
-    display: block;
-}
-
-#main{
-    margin: 50px 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.errorBanner{
+    background-color: red;
+    text-align: center;
+    font-size: large;
+    margin: 0px;
+    padding: 10px;
 }
