@@ -1,5 +1,7 @@
 'use client';
 
+import "./header-style.css"
+
 import NavigationBar from "./navigation-bar";
 import Logo from "../../logo.png";
 import Image from "next/image";
@@ -14,7 +16,7 @@ export default function MainHeader(){
 
     if(!hide) return (
         <header id="main-header">
-            <Image src={Logo} alt="The logo of the site" width="100" height="100"></Image>
+            <Image loading="eager" src={Logo} alt="The logo of the site" width="100" height="100"></Image>
             <p id="org-name">Organisation's name</p>
             <NavigationBar></NavigationBar>
         </header>

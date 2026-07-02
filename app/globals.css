@@ -1,31 +1,3 @@
-#nav-bar{
-    grid-area: 'nav';
-    display: grid;
-    right: 0px;
-    margin-left: auto;
-}
-
-#main-logo{
-    grid-area: 'logo'
-}
-
-#main-header{
-    display: grid;
-    grid: 
-    'logo org nav';
-    padding: 0px 20px;
-    background-color: #FF9D9D;
-}
-
-#org-name{
-    grid-area: "org";
-    text-align: center;
-    font-size: 150%;
-    font-weight: bolder;
-    margin: auto 0px;
-    font-family: sans-serif;
-}
-
 #main{
     margin: 10px;
     grid-area: main;
@@ -42,35 +14,12 @@ body{
     'sidebar main';
 }
 
-#sign-out-button{
-    color: white;
-    text-decoration: none;
-    background-color: #C61116;
-    border: none;
-    border-radius: 10px;
-    height: fit-content;
-    font-size: large;
-    top: 0px;
-    margin: auto 0px;
-    padding: 1px 20px;
-}
-
-#sign-out-button:hover{
-    cursor: pointer;
-}
-
 #footer{
     padding: 10px;
     grid-area: 'footer';
     text-align: center;
     font-weight: bolder;
     background-color: #FF9D9D;
-}
-
-#log-in-link{
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: auto;
 }
 
 #in-body{
