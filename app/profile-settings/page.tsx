@@ -1,7 +1,6 @@
 'use client';
 
-import "./profile-settings-style.css";
-import "../globals.css";
+import styles from "./style.module.css";
 import { SubmitEvent, useEffect, useState } from "react";
 import { supabaseClient } from "../../lib/supabase";
 import { useRouter } from "next/navigation";

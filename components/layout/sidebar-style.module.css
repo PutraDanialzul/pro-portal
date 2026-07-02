@@ -1,4 +1,4 @@
-#sidebar{
+.sidebar{
     background-color: #7c0d13;
     grid-area: sidebar;
     display: block;
@@ -6,16 +6,20 @@
     width: 300px;
 }
 
-#sidebar a{
+.sidebarButton{
     display: block;
     text-decoration: none;
     color: white;
     font-size: larger;
+    border: none;
+    width: 100%;
+    background: transparent;
+    cursor: pointer;
     padding: 10px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: bolder;
 }
 
-#sidebar a:hover, .selected{
+.sidebarButton:hover, .selected{
     background: #AC3D43;
 }

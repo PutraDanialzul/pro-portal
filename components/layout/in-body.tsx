@@ -6,11 +6,12 @@ import { hidePath } from "../../lib/hide-list";
 import MainHeader from "./main-header";
 import MainFooter from "./main-footer";
 import Sidebar from "./sidebar";
+import { useEffect, useState } from "react";
 
 export default function InBody({children}){
     const pathname = usePathname();
     const specialColoured = hidePath.includes(pathname);
-    return <div className={specialColoured ? styles.inBody + " " + styles.specialColoured : styles.inBody}>
+    return <div key={pathname} className={styles.pageEnterAnimation + " " + (specialColoured ? styles.inBody + " " + styles.specialColoured : styles.inBody)}>
         <MainHeader></MainHeader>
             {
                 specialColoured ? <div>{children}</div> : (

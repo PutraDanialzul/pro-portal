@@ -2,7 +2,7 @@ import InBody from "../components/layout/in-body";
 import MainFooter from "../components/layout/main-footer";
 import MainHeader from "../components/layout/main-header";
 import Sidebar from "../components/layout/sidebar";
-import "./globals.css"
+import styles from "./globals.module.css"
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export default function Layout({children}: {children: React.ReactNode}){
 
     return (
     <html lang="en">
-        <body>
+        <body className={styles.pageEnterAnimation}>
             <InBody>
                 {children}
             </InBody>
