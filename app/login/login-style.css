@@ -57,6 +57,7 @@ input[type="email"],input[type="password"]{
     display: block;
     border-radius: 100px;
     width: 100%;
+    cursor: pointer;
 }
 
 #quote{
