@@ -1,6 +1,6 @@
 #sidebar{
     background-color: #7c0d13;
-    grid-area: 'sidebar';
+    grid-area: sidebar;
     display: block;
     text-align: center;
     width: 300px;
@@ -10,8 +10,12 @@
     display: block;
     text-decoration: none;
     color: white;
+    font-size: larger;
+    padding: 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bolder;
 }
 
-#sidebar a:hover{
+#sidebar a:hover, .selected{
     background: #AC3D43;
 }

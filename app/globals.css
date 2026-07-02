@@ -13,17 +13,27 @@
     display: grid;
     grid: 
     'logo org nav';
-    padding: 20px;
+    padding: 0px 20px;
     background-color: #FF9D9D;
 }
 
 #org-name{
-    grid-area: "org"
+    grid-area: "org";
+    text-align: center;
+    font-size: 150%;
+    font-weight: bolder;
+    margin: auto 0px;
+    font-family: sans-serif;
 }
 
 #main{
     margin: 10px;
-    grid-area: 'main'
+    grid-area: main;
+    min-height: 500px;
+}
+
+body{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 #content{
@@ -32,10 +42,28 @@
     'sidebar main';
 }
 
+#sign-out-button{
+    color: white;
+    text-decoration: none;
+    background-color: #C61116;
+    border: none;
+    border-radius: 10px;
+    height: fit-content;
+    font-size: large;
+    top: 0px;
+    margin: auto 0px;
+    padding: 1px 20px;
+}
+
+#sign-out-button:hover{
+    cursor: pointer;
+}
+
 #footer{
-    padding: 30px;
+    padding: 10px;
     grid-area: 'footer';
     text-align: center;
+    font-weight: bolder;
     background-color: #FF9D9D;
 }
 
@@ -45,6 +73,6 @@
     margin-left: auto;
 }
 
-body{
+#in-body{
     border: double 5px black;
 }

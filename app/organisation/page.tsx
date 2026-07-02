@@ -5,6 +5,6 @@ export default function OrganisationJoinPage(){
                 <h1>Join an organisation</h1>
 
             </div>
-        </div>//7c0d13
+        </div>
     );
 }

@@ -38,18 +38,23 @@ export default function LoginPage(){
     }, [router]);
 
     return (
-        <div>
-            <h1>Login Page</h1>
-            <form onSubmit={login}>
-                <label htmlFor="email">Email: </label>
-                <input type="email" name="email" id="email" required></input>
-                <br></br>
-                <br></br>
-                <label htmlFor="password">Password: </label>
-                <input type="password" name="password" id="password" required></input>
-                <br></br>
-                <input type="submit" value="Log In"></input>
-            </form>
+        <div id="login-window">
+            <div id="left-content">
+                <h1>Welcome Back!</h1>
+                <i id="quote">“believe you can and you’re halfway there”</i>
+            </div>
+            <div id="right-content">
+                <h1>Login Page</h1>
+                <form onSubmit={login}>
+                    <input type="email" name="email" id="email" placeholder="Email" required></input>
+                    <input type="password" name="password" id="password" placeholder="Password" required></input>
+                    <input type="submit" id="login-button" value="Log In"></input>
+                </form>
+                <center>
+                    <p>Don't have an account yet?</p>
+                    <a href="/sign-up">Sign up</a>
+                </center>
+            </div>
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import NavigationBar from "../components/layout/navigation-bar";
+import MainHeader from "../components/layout/main-header";
 import Sidebar from "../components/layout/sidebar";
 import "./globals.css"
 import { Metadata } from "next";
@@ -11,20 +11,18 @@ export const metadata: Metadata = {
 
 
 export default function Layout({children}: {children: React.ReactNode}){
-    
+
     return (
     <html lang="en">
         <body>
-            <header id="main-header">
-                <p id="main-logo">Pro-Portal</p>
-                <p id="org-name">Organisation's name</p>
-                <NavigationBar></NavigationBar>
-            </header>
-            <div id="content">
-                <Sidebar></Sidebar>
-                <div id="main">{children}</div>
+            <div id="in-body">
+                <MainHeader></MainHeader>
+                <div id="content">
+                    <Sidebar></Sidebar>
+                    <div id="main">{children}</div>
+                </div>
+                <footer id="footer">Syntax Terror @ 2026</footer>
             </div>
-            <footer id="footer">Syntax Terror@2026</footer>
         </body>
     </html>
     );
