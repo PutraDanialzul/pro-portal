@@ -61,7 +61,7 @@ export default function OrganisationJoinPage(){
                 {error}
             </div> : <div></div>}
             <h1>Join an Organisation</h1>
-            <form onSubmit={joinOrganisation}>
+            <form onSubmit={joinOrganisation} autoComplete="off">
                 <input type="password" className={styles.textInput} id="key-input" name="key-input" placeholder="Organisation Key" required></input>
                 <input type="submit" className={styles.continueButton} value="Join Organisation"></input>
             </form>

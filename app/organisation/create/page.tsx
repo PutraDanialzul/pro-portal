@@ -67,12 +67,12 @@ export default function NewOrganisationPage(){
                 {error}
             </div> : <div></div>}
             <h1>Create a new Organisation</h1>
-            <form onSubmit={createOrganisation}>
+            <form onSubmit={createOrganisation} autoComplete="off">
                 <input type="text" className={styles.textInput} id="name-input" name="name" placeholder="Organisation Name" required></input>
                 <input type="password" className={styles.textInput} id="key-input" name="key" placeholder="Organisation Secret Key" required></input>
                 <input type="submit" className={styles.continueButton} value="Create Organisation"></input>
             </form>
-            <p><a href="/organisation/create">Click here</a> to join an organisation instead. </p>
+            <p><a href="/organisation">Click here</a> to join an organisation instead. </p>
         </div>
     );
 }
