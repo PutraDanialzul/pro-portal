@@ -20,14 +20,21 @@ export default function DashboardPage(){
         async function getUser(){
             const user = await supabaseClient.auth.getUser();
             if(user.data.user){
-                const profileData = await supabaseClient.from("user_profiles").select("*").eq("user_id", user.data.user.id).maybeSingle();
-                if(!profileData.data){
-                    router.replace("/profile-settings")
+                const membership = await supabaseClient.from("membership").select("*").eq("user_id", user.data.user.id).maybeSingle();
+                if(!membership.data){
+                    router.replace("/organisation")
                 }
                 else{
-                    setName(profileData.data.display_name)
-                    setLoading(false);
+                    const profileData = await supabaseClient.from("membership").select("*").eq("user_id", user.data.user.id).maybeSingle();
+                    if(!profileData.data){
+                        router.replace("/profile-settings")
+                    }
+                    else{
+                        setName(profileData.data.display_name)
+                        setLoading(false);
+                    }
                 }
+                
             }
             else{
                 router.replace("/login");

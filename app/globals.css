@@ -1,0 +1,50 @@
+#nav-bar{
+    grid-area: 'nav';
+    display: grid;
+    right: 0px;
+    margin-left: auto;
+}
+
+#main-logo{
+    grid-area: 'logo'
+}
+
+#main-header{
+    display: grid;
+    grid: 
+    'logo org nav';
+    padding: 20px;
+    background-color: #FF9D9D;
+}
+
+#org-name{
+    grid-area: "org"
+}
+
+#main{
+    margin: 10px;
+    grid-area: 'main'
+}
+
+#content{
+    display: grid;
+    grid:
+    'sidebar main';
+}
+
+#footer{
+    padding: 30px;
+    grid-area: 'footer';
+    text-align: center;
+    background-color: #FF9D9D;
+}
+
+#log-in-link{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+}
+
+body{
+    border: double 5px black;
+}

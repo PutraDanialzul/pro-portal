@@ -1,0 +1,17 @@
+#sidebar{
+    background-color: #7c0d13;
+    grid-area: 'sidebar';
+    display: block;
+    text-align: center;
+    width: 300px;
+}
+
+#sidebar a{
+    display: block;
+    text-decoration: none;
+    color: white;
+}
+
+#sidebar a:hover{
+    background: #AC3D43;
+}

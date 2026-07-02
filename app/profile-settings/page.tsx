@@ -16,7 +16,7 @@ export default function ProfileSettingPage(){
         const displayName = formData.get("display-name");
         const user = await supabaseClient.auth.getUser();
         if(user.data.user){
-            const upsert = await supabaseClient.from("user_profiles").upsert({user_id: user.data.user.id, display_name: displayName});
+            const upsert = await supabaseClient.from("membership").upsert({user_id: user.data.user.id, display_name: displayName});
             if(upsert.error){
                 console.error("Error: "+upsert.error.message);
             }

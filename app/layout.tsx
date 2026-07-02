@@ -1,4 +1,5 @@
 import NavigationBar from "../components/layout/navigation-bar";
+import Sidebar from "../components/layout/sidebar";
 import "./globals.css"
 import { Metadata } from "next";
 
@@ -15,11 +16,15 @@ export default function Layout({children}: {children: React.ReactNode}){
     <html lang="en">
         <body>
             <header id="main-header">
-                Pro-Portal
+                <p id="main-logo">Pro-Portal</p>
+                <p id="org-name">Organisation's name</p>
                 <NavigationBar></NavigationBar>
             </header>
-            {children}
-            <footer id="footer">@Syntax Terror</footer>
+            <div id="content">
+                <Sidebar></Sidebar>
+                <div id="main">{children}</div>
+            </div>
+            <footer id="footer">Syntax Terror@2026</footer>
         </body>
     </html>
     );

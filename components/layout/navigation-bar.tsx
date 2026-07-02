@@ -28,14 +28,13 @@ export default function NavigationBar(){
     }, [router, pathname]);
 
     if(user) return (
-        <nav>
-            <a href="/profile-settings">Settings</a>
+        <nav id="nav-bar">
             <button id="sign-out-button" onClick={signOut}>Sign Out</button>
         </nav>
     );
     else return (
-        <nav>
-            <a href="/login">Log In</a>
+        <nav id="nav-bar">
+            <a id="log-in-link" href="/login">Log In</a>
         </nav>
     );
 }
