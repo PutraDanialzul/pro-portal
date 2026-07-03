@@ -6,7 +6,6 @@ import { hidePath } from "../../lib/hide-list";
 import MainHeader from "./main-header";
 import MainFooter from "./main-footer";
 import Sidebar from "./sidebar";
-import { useEffect, useState } from "react";
 
 export default function InBody({children}){
     const pathname = usePathname();
@@ -15,7 +14,7 @@ export default function InBody({children}){
         <MainHeader></MainHeader>
             {
                 specialColoured ? <div>{children}</div> : (
-                    <div id="content">
+                    <div className={styles.middle}>
                         <Sidebar></Sidebar>
                         <div id="main">{children}</div>
                     </div>

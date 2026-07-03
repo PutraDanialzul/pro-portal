@@ -1,6 +1,7 @@
 .sidebar{
     background-color: #7c0d13;
     grid-area: sidebar;
+    min-height: 500px;
     display: block;
     text-align: center;
     width: 300px;

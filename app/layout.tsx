@@ -1,7 +1,4 @@
 import InBody from "../components/layout/in-body";
-import MainFooter from "../components/layout/main-footer";
-import MainHeader from "../components/layout/main-header";
-import Sidebar from "../components/layout/sidebar";
 import styles from "./globals.module.css"
 import { Metadata } from "next";
 
