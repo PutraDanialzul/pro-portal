@@ -58,6 +58,39 @@ export default function TaskPage() {
 
     }, [router]);
 
+    async function deleteTask(
+        taskId: string
+    ) {
+
+        const confirmed =
+            confirm(
+                "Are you sure you want to delete this task?"
+            );
+
+        if (!confirmed) {
+            return;
+        }
+
+        const { error } =
+            await supabaseClient
+                .from("task")
+                .delete()
+                .eq("id", taskId);
+
+        if (error) {
+            alert(error.message);
+            return;
+        }
+
+        setTasks(
+            previous =>
+                previous.filter(
+                    task =>
+                        task.id !== taskId
+                )
+        );
+    }
+
     function getDaysLeft(
         dueDate: string
     ) {
@@ -98,6 +131,9 @@ export default function TaskPage() {
                 return styles.notStarted;
         }
     }
+
+
+
     async function updateStatus(
         taskId: string,
         status: string
@@ -203,9 +239,12 @@ export default function TaskPage() {
                         <th>
                             Due Date
                         </th>
-
                         <th>
                             Days Left
+                        </th>
+                                    
+                        <th>
+                            Actions
                         </th>
                     </tr>
 
@@ -218,7 +257,7 @@ export default function TaskPage() {
                         0 ? (
                             <tr>
                                 <td
-                                    colSpan={5}
+                                    colSpan={6}
                                 >
                                     No tasks
                                     assigned.
@@ -314,6 +353,22 @@ export default function TaskPage() {
                                                     )
                                             }
 
+                                        </td>
+                                        <td>
+
+                                            <button
+                                                className={
+                                                    styles.deleteButton
+                                                }
+                                                onClick={() =>
+                                                    deleteTask(
+                                                        task.id
+                                                    )
+                                                }
+                                            >
+                                                Delete
+                                            </button>
+                                            
                                         </td>
                                     
                                     </tr>

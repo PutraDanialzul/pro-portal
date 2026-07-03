@@ -29,6 +29,10 @@ export default function Sidebar() {
             path: "/announcement"
         },
         {
+            label: "ORGANISATION",
+            path: "/organisation/settings"
+        },
+        {
             label: "SETTINGS",
             path: "/profile-settings"
         }

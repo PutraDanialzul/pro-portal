@@ -43,11 +43,13 @@
     font-size: large;
     top: 0px;
     margin: auto 0px;
-    padding: 1px 20px;
+    padding: 3px 30px;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
 .signOutButton:hover{
-    cursor: pointer;
+    transform:scale(1.05)
 }
 
 .whiteHeader{
