@@ -98,28 +98,29 @@ export default function OrganisationPage() {
                     )
                     .maybeSingle();
 
-            if (
-                !organisationResult.data
-            ) {
-
-                setError(
-                    "Organisation not found."
-                );
-
-                setLoading(false);
-
-                return;
-            }
-
-            setOrganisation(
-                organisationResult.data
-            );
-
-            const organisationId =
-                organisationResult
+                    
+                    if (
+                        !organisationResult.data
+                    ) {
+                        
+                        setError(
+                            "Organisation not found."
+                        );
+                        
+                        setLoading(false);
+                        
+                        return;
+                    }
+                    
+                    setOrganisation(
+                        organisationResult.data
+                    );
+                    
+                    const organisationId =
+                    organisationResult
                     .data
                     .id;
-
+                    
             const membershipRows =
                 await supabaseClient
                     .from("membership")
