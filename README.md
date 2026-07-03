@@ -1,362 +1,350 @@
-# Pro-Portal
+# 🚀 Pro-Portal
 
-A modern company portal designed to centralize organisational communication, task management, employee collaboration, and company resources in a single platform.
+> **A modern, enterprise-grade employee portal unifying communication, task management, and collaboration in one seamless platform.**
 
-Built with **Next.js**, **React**, **TypeScript**, and **Supabase**.
-
----
-
-## Features
-
-### Authentication
-
-- Secure user registration
-- Secure user login
-- Session management with Supabase Auth
-- Protected routes
-- Automatic login redirects
-- Logout functionality
-
-### Organisation Management
-
-- Create organisations
-- Join organisations using organisation keys
-- Membership tracking
-- Organisation ownership support
-
-### User Profiles
-
-- Profile creation
-- Profile updates
-- Personal account settings
-
-### Task Management
-
-- Create tasks
-- Assign tasks to users
-- Update task status
-- Track due dates
-- View task progress
-- Delete tasks
-- Overdue task detection
-
-### Announcements
-
-- Create announcements
-- View organisation announcements
-- Delete announcements
-- Announcement count dashboard
-
-### Dashboard
-
-- Quick navigation
-- Organisation overview
-- Task overview
-- Company announcements
+[![Next.js](https://img.shields.io/badge/Next.js-16.2-black?logo=next.js)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178C6?logo=typescript)](https://www.typescriptlang.org)
+[![Supabase](https://img.shields.io/badge/Supabase-Auth%20%26%20DB-3FCF8E?logo=supabase)](https://supabase.com)
+[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)](https://react.dev)
+[![License](https://img.shields.io/badge/License-Educational-green)](LICENSE)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-0070F3?logo=vercel)](https://pro-portal-ten.vercel.app)
 
 ---
 
-## Tech Stack
+## ✨ Features at a Glance
+
+| Feature | Description |
+|---------|-------------|
+| 🔐 **Secure Authentication** | Supabase-powered registration, login, and session management with protected routes |
+| 🏢 **Organisation Management** | Create orgs, join via keys, track memberships, and assign ownership |
+| 👤 **User Profiles** | Complete profile management with personal account settings |
+| ✅ **Task Management** | Create, assign, track, and monitor tasks with status updates and due dates |
+| 📢 **Announcements** | Broadcast company-wide announcements with real-time visibility |
+| 📊 **Interactive Dashboard** | Centralized hub for tasks, announcements, and organisation overview |
+
+---
+
+## 🛠️ Tech Stack
 
 ### Frontend
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript 6
+- **Styling**: Tailwind CSS 4 + CSS Modules
+- **UI Library**: React 19
 
-- Next.js 15
-- React
-- TypeScript
-- CSS Modules
-
-### Backend
-
-- Supabase
-
-### Services
-
-- Supabase Authentication
-- Supabase Database
-- Supabase Row Level Security (RLS)
+### Backend & Services
+- **Database**: Supabase (PostgreSQL)
+- **Authentication**: Supabase Auth
+- **Security**: Row Level Security (RLS) policies
+- **Hosting**: Vercel
 
 ---
 
-## Project Structure
+## 📁 Project Architecture
 
-```text
-app
-├── dashboard
-├── login
-├── signup
-├── profile-settings
-├── organisation
-├── new-organisation
-├── task
-│   ├── create
-│   └── page.tsx
-├── announcement
-└── layout.tsx
-
-lib
-└── supabase.ts
-
-public
-└── assets
+```
+pro-portal/
+├── app/                           # Next.js app directory
+│   ├── (auth)/
+│   │   ├── login/                 # Login page
+│   │   └── signup/                # Registration page
+│   ├── dashboard/                 # Main dashboard
+│   ├── profile-settings/          # User profile management
+│   ├── organisation/              # Org management
+│   ├── new-organisation/          # Create new org
+│   ├── task/
+│   │   ├── create/                # Task creation
+│   │   └── page.tsx               # Task listing
+│   ├── announcement/              # Announcements
+│   └── layout.tsx                 # Root layout
+├── lib/
+│   └── supabase.ts                # Supabase client config
+├── public/
+│   └── assets/                    # Static images & media
+├── package.json
+└── README.md
 ```
 
 ---
 
-## Database Structure
+## 🗄️ Database Schema
 
-### user_profiles
-
-```text
-user_id (PK)
-display_name
-created_at
+### `user_profiles`
+Stores user account information
+```sql
+user_id          (Primary Key, FK: auth.users)
+display_name     (VARCHAR)
+created_at       (TIMESTAMP)
 ```
 
-### organisation
-
-```text
-id (PK)
-owner_id
-name
-join_key
-created_at
+### `organisation`
+Company/team entities
+```sql
+id               (Primary Key)
+owner_id         (FK: user_profiles)
+name             (VARCHAR)
+join_key         (VARCHAR, Unique)
+created_at       (TIMESTAMP)
 ```
 
-### membership
-
-```text
-id (PK)
-user_id
-organisation_id
-created_at
+### `membership`
+Organisation membership records
+```sql
+id               (Primary Key)
+user_id          (FK: user_profiles)
+organisation_id  (FK: organisation)
+created_at       (TIMESTAMP)
 ```
 
-### announcement
-
-```text
-id (PK)
-organisation_id
-title
-content
-created_at
+### `announcement`
+Company-wide broadcasts
+```sql
+id               (Primary Key)
+organisation_id  (FK: organisation)
+title            (VARCHAR)
+content          (TEXT)
+created_at       (TIMESTAMP)
 ```
 
-### task
-
-```text
-id (PK)
-assigned_user_id
-title
-description
-status
-due_date
-created_at
-```
-
----
-
-## Installation
-
-Clone the repository:
-
-```bash
-git clone https://github.com/yourusername/pro-portal.git
-```
-
-Navigate into the project:
-
-```bash
-cd pro-portal
-```
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Run development server:
-
-```bash
-npm run dev
-```
-
-Open:
-
-```text
-http://localhost:3000
+### `task`
+Task management records
+```sql
+id               (Primary Key)
+assigned_user_id (FK: user_profiles)
+title            (VARCHAR)
+description      (TEXT)
+status           (ENUM: 'Not Started' | 'In Progress' | 'Completed')
+due_date         (DATE)
+created_at       (TIMESTAMP)
 ```
 
 ---
 
-## Environment Variables
+## 🚀 Quick Start
 
-Create:
+### Prerequisites
+- Node.js 18+
+- npm or yarn
+- Supabase account
 
-```env
-.env.local
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/PutraDanialzul/pro-portal.git
+   cd pro-portal
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Configure environment variables**
+   
+   Create `.env.local`:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
+
+   Get these from your [Supabase Dashboard](https://supabase.com/dashboard) → Settings → API
+
+4. **Run development server**
+   ```bash
+   npm run dev
+   ```
+
+5. **Open in browser**
+   ```
+   http://localhost:3000
+   ```
+
+---
+
+## 🔄 Authentication Flow
+
 ```
-
-Add:
-
-```env
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+┌─────────────┐
+│   Login     │ User enters credentials
+└──────┬──────┘
+       │
+       ▼
+┌─────────────────────────┐
+│ Session Created         │ Supabase Auth validates
+│ (JWT in secure cookie)  │
+└──────┬──────────────────┘
+       │
+       ▼
+┌─────────────────────────┐
+│ Protected Pages         │ Route guards verify session
+│ (RLS enforced)          │
+└──────┬──────────────────┘
+       │
+       ▼
+┌─────────────────────────┐
+│ Dashboard Access        │ User can access features
+└──────┬──────────────────┘
+       │
+       ▼
+┌─────────────────────────┐
+│ Logout                  │ Session destroyed
+└──────┬──────────────────┘
+       │
+       ▼
+┌─────────────────────────┐
+│ Redirect to /login      │ Automatic redirect
+└─────────────────────────┘
 ```
 
 ---
 
-## Authentication Flow
+## 🛣️ Route Protection
 
-```text
-Login
-    ↓
-Session Created
-    ↓
-Protected Pages
-    ↓
-Dashboard
-    ↓
-Logout
-    ↓
-Session Removed
-    ↓
-Redirect To Login
-```
+### Public Routes
+- `/login` - User login
+- `/signup` - User registration
+
+### Protected Routes
+- `/dashboard` - Main dashboard (requires auth)
+- `/profile-settings` - User profile (requires auth)
+- `/organisation/*` - All org features (requires auth + membership)
+- `/task/*` - Task management (requires auth)
+- `/announcement` - Announcements (requires auth)
+
+**Unauthenticated Access**: Automatically redirected to `/login`  
+**Authenticated Access to Public Routes**: Automatically redirected to `/dashboard`
 
 ---
 
-## Route Protection
+## 📋 Task Statuses
 
-Unauthenticated users are redirected to:
+Tasks can be in one of three states:
 
-```text
-/login
-```
+| Status | Description |
+|--------|-------------|
+| **Not Started** | Task created but work hasn't begun |
+| **In Progress** | Work is actively being performed |
+| **Completed** | Task finished and closed |
 
-Authenticated users are redirected away from:
-
-```text
-/login
-/signup
-```
-
-and sent to:
-
-```text
-/dashboard
-```
+The system automatically detects **overdue tasks** (past due date with non-completed status).
 
 ---
 
-## Task Statuses
+## 🔒 Security Features
 
-Supported statuses:
+### ✅ Implemented
+- **Supabase Authentication** - Industry-standard JWT-based auth
+- **Route Protection** - Middleware guards on protected pages
+- **Row Level Security (RLS)** - Database-level access control
+- **Session Validation** - Real-time auth state verification
+- **Secure Cookies** - HTTP-only, secure token storage
 
-```text
-Not Started
-In Progress
-Completed
-```
-
----
-
-## Security
-
-### Implemented
-
-- Supabase Authentication
-- Route Protection
-- Row Level Security (RLS)
-- User Session Validation
-
-### Recommended
-
-- Email Verification
-- Password Recovery
-- Organisation Role Permissions
-- Activity Logging
+### 🔜 Recommended for Production
+- [ ] Email verification for new accounts
+- [ ] Password recovery mechanism
+- [ ] Role-based access control (Admin, Manager, Employee)
+- [ ] Activity logging and audit trails
+- [ ] Rate limiting on auth endpoints
+- [ ] 2FA (Two-Factor Authentication)
+- [ ] Data encryption at rest
 
 ---
 
-## Future Improvements
+## 📈 Future Enhancements
 
-### Employee Directory
+### 🧑‍💼 Employee Directory
+- Full employee profiles with departments
+- Search and filter capabilities
+- Department-based organization
 
-```text
-Employee Profiles
-Department Listings
-Search Employees
-```
+### 📚 Knowledge Base
+- Company policies and documentation
+- Searchable content library
+- Version control for documents
 
-### Knowledge Base
+### 🗓️ Leave Management
+- Leave request workflows
+- Manager approval system
+- Balance tracking and accruals
 
-```text
-Company Policies
-Documentation
-Search Functionality
-```
+### 🛠️ Asset Management
+- Equipment tracking and assignment
+- Maintenance scheduling
+- Asset lifecycle management
 
-### Leave Management
-
-```text
-Leave Requests
-Approvals
-Leave Balance Tracking
-```
-
-### Asset Management
-
-```text
-Equipment Tracking
-Asset Assignment
-Maintenance Records
-```
-
-### AI Assistant
-
-```text
-Knowledge Search
-Employee Support
-Document Assistance
-```
+### 🤖 AI Assistant
+- Smart knowledge search
+- Employee support chatbot
+- Document analysis and summaries
 
 ---
 
-## Screenshots
+## 📸 User Interface
 
 ### Dashboard
-
-- Task overview
-- Announcements
-- Navigation sidebar
-- Organisation information
+- 📊 Task progress overview
+- 📢 Latest company announcements
+- 🧭 Quick navigation sidebar
+- 🏢 Organisation information card
 
 ### Task Management
+- ✏️ Create and edit tasks
+- 👥 Assign to team members
+- 📅 Set and track due dates
+- ✅ Update task status
+- 🗑️ Delete completed tasks
 
-- Task listing
-- Status updates
-- Due date tracking
-- Task deletion
-
----
-
-## Contributors
-
-### Syntax Terror
-
-Developed as part of the Pro-Portal project.
+### Announcements
+- 📝 Create announcements
+- 👁️ Real-time visibility
+- 🔔 Announcement counter
+- 🗑️ Delete outdated posts
 
 ---
 
-## License
+## 🤝 Contributing
 
-This project is intended for educational, academic, and demonstration purposes.
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ---
 
-## Author
+## 📝 License
+
+This project is provided for **educational, academic, and demonstration purposes**. For commercial use, please contact the author.
+
+---
+
+## 👨‍💻 Author
 
 **Putra Danialzulqarnain Bin Zaidi**
 
-Pro-Portal aims to provide a clean and centralized digital workspace for organisations by combining communication, task tracking, and employee collaboration into one platform.
+[GitHub](https://github.com/PutraDanialzul) | [Live Demo](https://pro-portal-ten.vercel.app)
+
+---
+
+## 💡 Project Vision
+
+Pro-Portal aims to revolutionize workplace collaboration by providing a **clean, intuitive, and centralized digital workspace** that combines:
+- 💬 Real-time communication
+- ✅ Efficient task tracking
+- 👥 Seamless employee collaboration
+- 📊 Actionable insights
+
+All in **one unified platform**.
+
+---
+
+<div align="center">
+
+**Made with ❤️ by Putra Danialzul**
+
+[Report Bug](https://github.com/PutraDanialzul/pro-portal/issues) · [Request Feature](https://github.com/PutraDanialzul/pro-portal/issues)
+
+</div>
