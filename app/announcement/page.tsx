@@ -134,9 +134,18 @@ export default function AnnouncementPage() {
                     Announcements
                 </h1>
 
-                <Link href="/announcement/create">
-                    + Create
-                </Link>
+                <button
+                    className={
+                        styles.createButton
+                    }
+                    onClick={() =>
+                        router.push(
+                            "/announcement/create"
+                        )
+                    }
+                >
+                    + New Announcement
+                </button>
 
             </div>
 
