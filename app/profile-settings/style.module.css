@@ -86,12 +86,13 @@
 
 .continueButton{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    background-color: #fc8181;
+    background-color: #577b99;
     border: none;
     font-size: larger;
     padding: 10px 0px;
     margin-left: auto;
     margin-right: auto;
+    color: white;
     margin-top: 20px;
     margin-bottom: 20px;
     display: block;

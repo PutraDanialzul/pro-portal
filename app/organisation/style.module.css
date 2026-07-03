@@ -29,7 +29,10 @@
 
 .continueButton{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    background-color: #fc8181;
+
+    background:#2563eb;
+    color:white;
+
     border: none;
     font-size: larger;
     padding: 10px 0px;
@@ -41,6 +44,10 @@
     border-radius: 100px;
     width: 90%;
     cursor: pointer;
+}
+
+.continueButton:hover{
+    background:#1d4ed8;
 }
 
 .errorBanner{

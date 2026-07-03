@@ -26,6 +26,11 @@
     border-radius: 100px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: large;
+    transition: 0.35s;
+}
+
+.textInput:focus{
+    transform: scale(1.05);
 }
 
 .leftContent{
@@ -42,7 +47,7 @@
 
 .loginButton{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    background-color: #fc8181;
+    background-color: #577b99;
     border: none;
     font-size: larger;
     padding: 10px 0px;
@@ -50,7 +55,14 @@
     display: block;
     border-radius: 100px;
     width: 100%;
+    color: white;
     cursor: pointer;
+    transition: 0.35s;
+}
+
+.loginButton:hover{
+    background-color: black;
+    transform: scale(1.05);
 }
 
 .quote{

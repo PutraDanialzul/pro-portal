@@ -3,7 +3,16 @@
 }
 
 .specialColoured{
-    background-color: #ff9d9d;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f8fafc 0%,
+            #eaf1f7 35%,
+            #cddceb 70%,
+            #7494b4 100%
+        );
+
 }
 
 .pageEnterAnimation{
@@ -25,6 +34,23 @@
 
 .mainContent{
     flex: 1;
+
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(37,99,235,0.15),
+            transparent 35%
+        ),
+
+        radial-gradient(
+            circle at bottom right,
+            rgba(59,130,246,0.12),
+            transparent 35%
+        ),
+
+        #f8fafc;
+
 }
 
 .middle{

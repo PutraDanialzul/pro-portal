@@ -14,10 +14,17 @@
     grid: 
     'logo org nav';
     padding: 0px 20px;
-    background-color: #FF9D9D;
-}
+    background: white;
 
-.organisationName{
+    background: white;
+
+    box-shadow:
+        0 8px 24px rgba(30, 58, 95, 0.12);
+
+        border-bottom: 2px solid #212e46;
+    }
+    
+    .organisationName{
     grid-area: org;
     text-align: center;
     font-size: 150%;
@@ -29,7 +36,7 @@
 .signOutButton{
     color: white;
     text-decoration: none;
-    background-color: #C61116;
+    background:#dc2626;
     border: none;
     border-radius: 10px;
     height: fit-content;
@@ -48,4 +55,5 @@
     min-height: 40px;
     display: block;
     background-color: #faf9f6;
+    border-bottom: 2px solid #212e46;
 }

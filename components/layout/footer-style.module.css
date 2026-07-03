@@ -3,12 +3,14 @@
     padding: 15px;
     text-align: center;
     font-weight: bold;
+    border-top: solid 2px #212e46;
 }
 
 .mainFooter {
-    background-color: #FF9D9D;
+    background-color: white;
     padding: 15px;
     text-align: center;
     font-weight: bold;
     margin-top: auto;
+    border-top: solid 2px #212e46;
 }

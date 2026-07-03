@@ -1,5 +1,6 @@
 .sidebar{
-    background-color: #7c0d13;
+    background: #577b99;
+
     grid-area: sidebar;
     min-height: 500px;
     display: block;
@@ -22,5 +23,5 @@
 }
 
 .sidebarButton:hover, .selected{
-    background: #AC3D43;
+    background-color: #7494b4;
 }
