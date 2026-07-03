@@ -1,0 +1,87 @@
+.dashboardContainer{
+    padding: 30px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.welcomeCard{
+    background-color: #FF9D9D;
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 20px;
+}
+
+.welcomeCard h1{
+    margin: 0;
+}
+
+.welcomeCard p{
+    margin-top: 10px;
+}
+
+.statsGrid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.statCard{
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+.statCard h2{
+    margin: 0;
+    font-size: 3rem;
+    color: #C61116;
+}
+
+.sectionCard{
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+.sectionCard h2{
+    margin-top: 0;
+}
+
+.list{
+    margin: 0;
+    padding-left: 20px;
+}
+
+.list li{
+    margin: 10px 0;
+}
+.activityGrid{
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(300px, 1fr)
+        );
+
+    gap: 20px;
+
+    margin-bottom: 20px;
+}
+
+.organisationCard{
+    background: white;
+
+    padding: 20px;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 3px 8px
+        rgba(0,0,0,0.15);
+}

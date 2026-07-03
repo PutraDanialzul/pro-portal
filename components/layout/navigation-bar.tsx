@@ -9,9 +9,9 @@ export default function NavigationBar(){
 
     const router = useRouter();
 
-    function signOut(){
-        supabaseClient.auth.signOut();
-        router.push("/login");
+    async function signOut(){
+        await supabaseClient.auth.signOut();
+        router.replace("/login");
     }
     return (
         <nav className={styles.navigationBar}>

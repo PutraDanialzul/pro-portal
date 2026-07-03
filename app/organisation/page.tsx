@@ -1,71 +1,206 @@
 'use client';
 
 import { SubmitEvent, useEffect, useState } from "react";
-import styles from "./style.module.css"
-import { supabaseClient } from "../../lib/supabase";
 import { useRouter } from "next/navigation";
 
-export default function OrganisationJoinPage(){
+import styles from "./style.module.css";
+
+import { supabaseClient } from "../../lib/supabase";
+import Link from "next/link";
+
+export default function OrganisationJoinPage() {
 
     const router = useRouter();
 
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
-    async function joinOrganisation(event:SubmitEvent<HTMLFormElement>){
+    async function signOut() {
+
+        const { error } =
+            await supabaseClient.auth.signOut();
+
+        if (error) {
+            setError(error.message);
+            return;
+        }
+
+        router.replace("/login");
+    }
+
+    async function joinOrganisation(
+        event: SubmitEvent<HTMLFormElement>
+    ) {
+
         event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        const joinKey = formData.get("key-input");
-        const userData = await supabaseClient.auth.getUser();
-        if(!userData.data.user){
+
+        setError("");
+
+        const {
+            data: { user }
+        } = await supabaseClient.auth.getUser();
+
+        if (!user) {
             router.replace("/login");
             return;
         }
-        const orgData = await supabaseClient.from("organisation").select("*").eq("join_key", joinKey).maybeSingle();
-        if(orgData.data){
-            await supabaseClient.from("membership").upsert({user_id: userData.data.user.id, organisation_id: orgData.data.id});
-            router.replace("/profile-settings");
+
+        const formData = new FormData(
+            event.target
+        );
+
+        const joinKey = String(
+            formData.get("key-input")
+        );
+
+        const organisation =
+            await supabaseClient
+                .from("organisation")
+                .select("*")
+                .eq("join_key", joinKey)
+                .maybeSingle();
+
+        if (!organisation.data) {
+            setError(
+                "Invalid organisation key."
+            );
+            return;
         }
-        else{
-            setError("Error: Failed to find the organisation. ");
+
+        const { error } =
+            await supabaseClient
+                .from("membership")
+                .upsert({
+                    user_id: user.id,
+                    organisation_id:
+                        organisation.data.id
+                });
+
+        if (error) {
+            setError(error.message);
+            return;
         }
+
+        router.replace("/profile-settings");
     }
 
-    useEffect(()=>{
+    useEffect(() => {
 
-        async function checkMembership(){
-            const userData = await supabaseClient.auth.getUser();
-            if(userData.data.user){
-                const membershipData = await supabaseClient.from("membership").select("*").eq("user_id", userData.data.user.id).maybeSingle();
-                if(!membershipData.data){
-                    setError("");
-                }
-                else{
-                    const organisationData = await supabaseClient.from("organisation").select("*").eq("id", membershipData.data.organisation_id).maybeSingle();
-                    if(!organisationData.data){
-                        await supabaseClient.from("membership").delete().eq("user_id", userData.data.user.id);
-                        setError("")
-                    }
-                    else router.replace("/dashboard");
-                }
+        async function initialise() {
+
+            const {
+                data: { user }
+            } = await supabaseClient.auth.getUser();
+
+            if (!user) {
+                router.replace("/login");
+                return;
             }
-            else router.replace("/login");
+
+            const membership =
+                await supabaseClient
+                    .from("membership")
+                    .select("*")
+                    .eq("user_id", user.id)
+                    .maybeSingle();
+
+            if (membership.data) {
+
+                const organisation =
+                    await supabaseClient
+                        .from("organisation")
+                        .select("*")
+                        .eq(
+                            "id",
+                            membership.data
+                                .organisation_id
+                        )
+                        .maybeSingle();
+
+                if (organisation.data) {
+                    router.replace(
+                        "/dashboard"
+                    );
+                    return;
+                }
+
+                await supabaseClient
+                    .from("membership")
+                    .delete()
+                    .eq("user_id", user.id);
+            }
+
+            setLoading(false);
         }
 
-        checkMembership();
+        initialise();
 
-    }, [ router ]);
+    }, [router]);
+
+    if (loading) {
+        return (
+            <div className={styles.mainCard}>
+                <h1>Loading...</h1>
+            </div>
+        );
+    }
 
     return (
         <div className={styles.mainCard}>
-            {error.trim() ? <div className={styles.errorBanner}>
-                {error}
-            </div> : <div></div>}
-            <h1>Join an Organisation</h1>
-            <form onSubmit={joinOrganisation} autoComplete="off">
-                <input type="password" className={styles.textInput} id="key-input" name="key-input" placeholder="Organisation Key" required></input>
-                <input type="submit" className={styles.continueButton} value="Join Organisation"></input>
+
+            {
+                error.trim() && (
+                    <div
+                        className={
+                            styles.errorBanner
+                        }
+                    >
+                        {error}
+                    </div>
+                )
+            }
+
+            <h1>
+                Join an Organisation
+            </h1>
+
+            <form
+                onSubmit={
+                    joinOrganisation
+                }
+                autoComplete="off"
+            >
+                <button
+                    type="button"
+                    className={styles.signOutButton}
+                    onClick={signOut}
+                >
+                    Sign Out
+                </button>
+
+                <input
+                    type="password"
+                    name="key-input"
+                    className={
+                        styles.textInput
+                    }
+                    defaultValue={""}
+                    placeholder="Organisation Key"
+                    required
+                />
+
+                <input
+                    type="submit"
+                    className={
+                        styles.continueButton
+                    }
+                    value="Join Organisation"
+                />
+
             </form>
-            <p><a href="/organisation/create">Click here</a> to create an organisation instead. </p>
+
+            <p><Link href="/organisation/create">Click here</Link> if you want to create a new organisation instead.</p>
+
         </div>
     );
 }

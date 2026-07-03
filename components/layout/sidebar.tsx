@@ -1,21 +1,60 @@
 'use client';
 
 import { usePathname, useRouter } from "next/navigation";
-import styles from "./sidebar-style.module.css"
+
+import styles from "./sidebar-style.module.css";
+
 import { hidePath } from "../../lib/hide-list";
 
-export default function Sidebar(){
+export default function Sidebar() {
 
     const pathname = usePathname();
     const router = useRouter();
 
-    if(hidePath.includes(pathname)) return (<div hidden></div>);
-    else return (
+    if (hidePath.includes(pathname)) {
+        return null;
+    }
+
+    const pages = [
+        {
+            label: "DASHBOARD",
+            path: "/dashboard"
+        },
+        {
+            label: "TASK",
+            path: "/task"
+        },
+        {
+            label: "ANNOUNCEMENT",
+            path: "/announcement"
+        },
+        {
+            label: "SETTINGS",
+            path: "/profile-settings"
+        }
+    ];
+
+    return (
         <nav className={styles.sidebar}>
-            <button className={(pathname == "/dashboard" ? styles.selected : null) + " " + styles.sidebarButton} onClick={() => router.push("/dashboard")}>DASHBOARD</button>
-            <button className={(pathname == "/task" ? styles.selected : null) + " " + styles.sidebarButton} onClick={() => router.push("/task")}>TASK</button>
-            <button className={(pathname == "/announcement" ? styles.selected : null) + " " + styles.sidebarButton} onClick={() => router.push("/announcement")}>ANNOUNCEMENT</button>
-            <button className={(pathname == "/profile-settings" ? styles.selected : null) + " " + styles.sidebarButton} onClick={() => router.push("/profile-settings")}>SETTINGS</button>
+            {
+                pages.map((page) => (
+                    <button
+                        key={page.path}
+                        className={
+                            `${styles.sidebarButton} ${
+                                pathname === page.path
+                                    ? styles.selected
+                                    : ""
+                            }`
+                        }
+                        onClick={() =>
+                            router.push(page.path)
+                        }
+                    >
+                        {page.label}
+                    </button>
+                ))
+            }
         </nav>
     );
 }

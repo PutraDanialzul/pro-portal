@@ -13,7 +13,7 @@ export default function Layout({children}: {children: React.ReactNode}){
 
     return (
     <html lang="en">
-        <body className={styles.pageEnterAnimation}>
+        <body>
             <InBody>
                 {children}
             </InBody>

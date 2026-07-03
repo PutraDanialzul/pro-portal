@@ -1,1 +1,1 @@
-export const hidePath = [ "/login", "/organisation", "/organisation/create", "/sign-up", "/profile-settings" ];
+export const hidePath = [ "/login", "/organisation", "/organisation/create", "/sign-up", "/profile-settings", "/" ];

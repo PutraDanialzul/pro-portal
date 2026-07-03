@@ -1,26 +1,42 @@
 'use client';
 
-import { useEffect, useState } from "react";
-import { supabaseClient } from "../lib/supabase"
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { supabaseClient } from "../lib/supabase";
 
-export default function HomePage(){
+export default function HomePage() {
+
     const router = useRouter();
-    useEffect(()=>{
-        async function checkUser(){
-            const user = await supabaseClient.auth.getUser();
-            if(user.data.user){
+
+    useEffect(() => {
+
+        async function redirectUser() {
+
+            const {
+                data: { user }
+            } = await supabaseClient.auth.getUser();
+
+            if (user) {
                 router.replace("/dashboard");
             }
-            else{
+            else {
                 router.replace("/login");
             }
         }
-        checkUser();
+
+        redirectUser();
+
     }, [router]);
+
     return (
-        <h1>
-            Loading...
-        </h1>
+        <div
+            style={{
+                textAlign: "center",
+                padding: "100px"
+            }}
+        >
+            <h1>Loading...</h1>
+            <p>Please wait a few seconds.</p>
+        </div>
     );
 }

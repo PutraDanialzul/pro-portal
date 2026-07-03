@@ -1,25 +1,62 @@
 'use client';
 
 import { usePathname } from "next/navigation";
-import styles from "./in-body.styles.module.css"
+
+import styles from "./in-body.styles.module.css";
+
 import { hidePath } from "../../lib/hide-list";
+
 import MainHeader from "./main-header";
 import MainFooter from "./main-footer";
 import Sidebar from "./sidebar";
 
-export default function InBody({children}){
+export default function InBody({
+    children
+}: {
+    children: React.ReactNode;
+}) {
+
     const pathname = usePathname();
-    const specialColoured = hidePath.includes(pathname);
-    return <div key={pathname} className={styles.pageEnterAnimation + " " + (specialColoured ? styles.inBody + " " + styles.specialColoured : styles.inBody)}>
-        <MainHeader></MainHeader>
+
+    const specialPage =
+        hidePath.includes(pathname);
+
+    return (
+        <div
+            key={pathname}
+            className={`
+                ${styles.inBody}
+                ${styles.pageEnterAnimation}
+                ${
+                    specialPage
+                        ? styles.specialColoured
+                        : ""
+                }
+            `}
+        >
+
+            <MainHeader />
+
             {
-                specialColoured ? <div>{children}</div> : (
+                specialPage ? (
+                    <div>
+                        {children}
+                    </div>
+                ) : (
                     <div className={styles.middle}>
-                        <Sidebar></Sidebar>
-                        <div id="main">{children}</div>
+
+                        <Sidebar />
+
+                        <main id="main" className={styles.mainContent}>
+                            {children}
+                        </main>
+
                     </div>
                 )
             }
-        <MainFooter></MainFooter>
-    </div>
+
+            <MainFooter />
+
+        </div>
+    );
 }

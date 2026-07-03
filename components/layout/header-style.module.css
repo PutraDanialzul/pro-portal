@@ -1,12 +1,12 @@
 .navigationBar{
-    grid-area: 'nav';
+    grid-area: nav;
     display: grid;
     right: 0px;
     margin-left: auto;
 }
 
 .logo{
-    grid-area: 'logo'
+    grid-area: logo
 }
 
 .mainHeader{
@@ -18,7 +18,7 @@
 }
 
 .organisationName{
-    grid-area: "org";
+    grid-area: org;
     text-align: center;
     font-size: 150%;
     font-weight: bolder;

@@ -11,6 +11,63 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.backButton{
+    font-family: 'Franklin Gothic Medium',
+        'Arial Narrow',
+        Arial,
+        sans-serif;
+
+    background-color: #7c0d13;
+    color: white;
+
+    border: none;
+
+    font-size: larger;
+
+    padding: 10px 0px;
+
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+
+    display: block;
+
+    border-radius: 100px;
+
+    width: 90%;
+
+    cursor: pointer;
+}
+
+.rejoinButton{
+    font-family: 'Franklin Gothic Medium',
+        'Arial Narrow',
+        Arial,
+        sans-serif;
+
+    background-color: #7c0d13;
+    color: white;
+
+    border: none;
+
+    font-size: larger;
+
+    padding: 10px 0px;
+
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 20px;
+
+    display: block;
+
+    border-radius: 100px;
+
+    width: 90%;
+
+    cursor: pointer;
+}
+
 .textInput{
     background-color: #ced9e2;
     border: none;

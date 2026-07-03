@@ -23,6 +23,10 @@
     }
 }
 
+.mainContent{
+    flex: 1;
+}
+
 .middle{
     display: flex;
     flex-direction: row;

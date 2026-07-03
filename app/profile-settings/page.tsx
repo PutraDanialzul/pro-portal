@@ -1,96 +1,265 @@
 'use client';
 
 import { SubmitEvent, useEffect, useState } from "react";
-import styles from "./style.module.css"
+import styles from "./style.module.css";
 import { useRouter } from "next/navigation";
 import { supabaseClient } from "../../lib/supabase";
 
-export default function ProfileSettingsPage(){
+export default function ProfileSettingsPage() {
 
     const router = useRouter();
 
+    const [loading, setLoading] = useState(true);
+
     const [error, setError] = useState("");
 
-    const [defName, setDefName] = useState("");
-    const [defRole, setDefRole] = useState("");
-    const [defDepartment, setDefDepartment] = useState("");
+    const [name, setName] = useState("");
+    const [role, setRole] = useState("");
+    const [department, setDepartment] = useState("");
 
-    async function setProfile(event:SubmitEvent<HTMLFormElement>){
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        const userData = await supabaseClient.auth.getUser();
-        if(!userData.data.user){
+    const [existingProfile, setExistingProfile] = useState(false);
+
+    async function rejoinOrganisation() {
+
+        const {
+            data: { user }
+        } = await supabaseClient.auth.getUser();
+
+        if (!user) {
             router.replace("/login");
             return;
         }
-        const name = formData.get("name");
-        const role = formData.get("role");
-        const department = formData.get("department");
 
-        const profileData = await supabaseClient.from("profile").upsert({
-            user_id: userData.data.user.id, 
-            display_name: name,
-            role: role,
-            department: department
-        }).single();
+        
+        if (
+            !confirm(
+                "Are you sure you want to leave your current organisation?"
+            )
+        ) {
+            return;
+        }
+
+
+        const { error } = await supabaseClient
+            .from("membership")
+            .delete()
+            .eq("user_id", user.id);
+
+        if (error) {
+            setError(error.message);
+            return;
+        }
+
+        router.replace("/organisation");
+    }
+
+    async function saveProfile(
+        event: SubmitEvent<HTMLFormElement>
+    ) {
+
+        event.preventDefault();
+
+        setError("");
+
+        const {
+            data: { user }
+        } = await supabaseClient.auth.getUser();
+
+        if (!user) {
+            router.replace("/login");
+            return;
+        }
+
+        const { error } = await supabaseClient
+            .from("profile")
+            .upsert({
+                user_id: user.id,
+                display_name: name,
+                role: role,
+                department: department
+            });
+
+        if (error) {
+            setError(error.message);
+            return;
+        }
 
         router.replace("/dashboard");
     }
 
-    useEffect(()=>{
+    useEffect(() => {
 
-        async function checkMembership(){
-            const user = await supabaseClient.auth.getUser();
-            if(!user.data.user){
+        async function loadPage() {
+
+            const {
+                data: { user }
+            } = await supabaseClient.auth.getUser();
+
+            if (!user) {
                 router.replace("/login");
-                return null;
-                
-            }
-        
-            const membership = await supabaseClient.from("membership").select("*").eq("user_id", user.data.user.id).maybeSingle();
-            if(!membership.data){
-                router.replace("/organisation");
-                return null;
-            }
-        
-            const orgId = membership.data.organisation_id;
-            const orgData = await supabaseClient.from("organisation").select("*").eq("id", orgId).maybeSingle();
-            if(!orgData.data){
-                await supabaseClient.from("membership").delete().eq("user_id", user.data.user.id);
-                router.replace("/organisation");
-                return null;
+                return;
             }
 
-            const profileData = await supabaseClient.from("profile").select("*").eq("user_id", user.data.user.id).maybeSingle();
-            if(profileData.data){
-                setDefName(profileData.data.display_name);
-                setDefRole(profileData.data.role);
-                setDefDepartment(profileData.data.department);
+            const membership =
+                await supabaseClient
+                    .from("membership")
+                    .select("*")
+                    .eq("user_id", user.id)
+                    .maybeSingle();
+
+            if (!membership.data) {
+                router.replace("/organisation");
+                return;
             }
-            else{
-                setDefName("");
-                setDefRole("");
-                setDefDepartment("");
+
+            const organisation =
+                await supabaseClient
+                    .from("organisation")
+                    .select("*")
+                    .eq(
+                        "id",
+                        membership.data.organisation_id
+                    )
+                    .maybeSingle();
+
+            if (!organisation.data) {
+
+                await supabaseClient
+                    .from("membership")
+                    .delete()
+                    .eq("user_id", user.id);
+
+                router.replace("/organisation");
+                return;
             }
+
+            const profile =
+                await supabaseClient
+                    .from("profile")
+                    .select("*")
+                    .eq("user_id", user.id)
+                    .maybeSingle();
+
+            if (profile.data) {
+
+                setExistingProfile(true);
+
+                setName(
+                    profile.data.display_name ?? ""
+                );
+
+                setRole(
+                    profile.data.role ?? ""
+                );
+
+                setDepartment(
+                    profile.data.department ?? ""
+                );
+            }
+
+            setLoading(false);
         }
 
-        checkMembership();
+        loadPage();
 
-    }, [ router ]);
+    }, [router]);
+
+    if (loading) {
+        return (
+            <div className={styles.mainCard}>
+                <h1>Loading...</h1>
+            </div>
+        );
+    }
 
     return (
         <div className={styles.mainCard}>
-            {error.trim() ? <div className={styles.errorBanner}>
-                {error}
-            </div> : <div></div>}
-            <h1>Set Up You Profile</h1>
-            <form method="POST" onSubmit={setProfile} autoComplete="off">
-                <input type="text" className={styles.textInput} defaultValue={defName} name="name" placeholder="Display Name" required></input>
-                <input type="text" className={styles.textInput} defaultValue={defRole} name="role" placeholder="Role" required></input>
-                <input type="text" className={styles.textInput} defaultValue={defDepartment} name="department" placeholder="Department" required></input>
-                <input type="submit" className={styles.continueButton} value="Save Profile"></input>
+
+            {
+                error.trim() && (
+                    <div
+                        className={styles.errorBanner}
+                    >
+                        {error}
+                    </div>
+                )
+            }
+
+            <h1>Set Up Your Profile</h1>
+  
+            {
+                existingProfile && (
+                    <button
+                        type="button"
+                        className={styles.continueButton}
+                        onClick={() =>
+                            router.replace("/dashboard")
+                        }
+                    >
+                        Back to Dashboard
+                    </button>
+                )
+            }
+
+            <form
+                onSubmit={saveProfile}
+                autoComplete="off"
+            >
+
+                <input
+                    type="text"
+                    className={styles.textInput}
+                    value={name}
+                    onChange={(e) =>
+                        setName(e.target.value)
+                    }
+                    placeholder="Display Name"
+                    required
+                />
+
+                <input
+                    type="text"
+                    className={styles.textInput}
+                    value={role}
+                    onChange={(e) =>
+                        setRole(e.target.value)
+                    }
+                    placeholder="Role"
+                    required
+                />
+
+                <input
+                    type="text"
+                    className={styles.textInput}
+                    value={department}
+                    onChange={(e) =>
+                        setDepartment(e.target.value)
+                    }
+                    placeholder="Department"
+                    required
+                />
+
+                <input
+                    type="submit"
+                    className={styles.continueButton}
+                    value="Save Profile"
+                />
+                
+                {
+                    existingProfile && (
+                        <button
+                            type="button"
+                            className={styles.rejoinButton}
+                            onClick={rejoinOrganisation}
+                        >
+                            Rejoin Organisation
+                        </button>
+                    )
+                }
+
+
             </form>
-            <p><a href="/organisation">Click here</a> to reset your organisation instead. </p>
+
         </div>
     );
 }
