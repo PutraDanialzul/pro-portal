@@ -31,10 +31,22 @@ export default function OrganisationJoinPage() {
     async function joinOrganisation(
         event: SubmitEvent<HTMLFormElement>
     ) {
+        setError("");
 
         event.preventDefault();
 
-        setError("");
+        const formData = new FormData(
+            event.target
+        );
+        
+        const joinKey = String(
+            formData.get("key-input")
+        );
+
+        if(!joinKey.trim()){
+            setError("Error: Organisation key cannot be blank")
+            return;
+        }
 
         const {
             data: { user }
@@ -45,13 +57,7 @@ export default function OrganisationJoinPage() {
             return;
         }
 
-        const formData = new FormData(
-            event.target
-        );
 
-        const joinKey = String(
-            formData.get("key-input")
-        );
 
         const organisation =
             await supabaseClient
@@ -62,7 +68,7 @@ export default function OrganisationJoinPage() {
 
         if (!organisation.data) {
             setError(
-                "Invalid organisation key."
+                "Error: Organisation not found."
             );
             return;
         }
@@ -186,7 +192,6 @@ export default function OrganisationJoinPage() {
                     }
                     defaultValue={""}
                     placeholder="Organisation Key"
-                    required
                 />
 
                 <input

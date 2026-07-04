@@ -39,6 +39,11 @@ export default function NewOrganisationPage() {
         const key = String(formData.get("key"));
         const name = String(formData.get("name"));
 
+        if(!key.trim() || !name.trim()){
+            setError("Error: Organisation name or key cannot be empty.");
+            return;
+        }
+
         const {
             data: { user }
         } = await supabaseClient.auth.getUser();
@@ -53,7 +58,7 @@ export default function NewOrganisationPage() {
                 .from("organisation")
                 .select("id")
                 .eq("join_key", key)
-                .maybeSingle();
+                .single();
 
         if (existingOrganisation.data) {
             setError(
@@ -200,21 +205,15 @@ export default function NewOrganisationPage() {
                 <input
                     type="text"
                     className={styles.textInput}
-                    name="organisation-name"
+                    name="name"
                     placeholder="Organisation Name"
-                    defaultValue={""}
-                    autoComplete="organisation-name"
-                    required
                 />
 
                 <input
                     type="password"
                     className={styles.textInput}
-                    name="organisation-key"
+                    name="key"
                     placeholder="Organisation Secret Key"
-                    defaultValue={""}
-                    autoComplete="organisation-key"
-                    required
                 />
 
                 <input

@@ -22,7 +22,8 @@
     padding: 10px 16px;
     border-radius: 10px;
     font-weight: bold;
-    transition: 0.2s;
+    border: none;
+    transition: 0.35s;
 }
 
 .createBtn:hover {
@@ -115,7 +116,7 @@
     color: white;
 
     border: none;
-
+    transition: 0.35s;
     border-radius: 10px;
 
     cursor: pointer;
@@ -179,7 +180,7 @@
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 10px;
-
+    transition: 0.35s;
     background-color: #C61116;
     color: white;
 
@@ -188,7 +189,7 @@
 
 .cancelButton{
     border: none;
-
+    transition: 0.35s;
     background-color: #666;
 
     color: white;
@@ -198,4 +199,9 @@
     border-radius: 10px;
 
     cursor: pointer;
+}
+
+.cancelButton:hover, .createButton:hover, .createBtn:hover, .deleteButton:hover{
+    background-color: black;
+    transform: scale(1.05);
 }

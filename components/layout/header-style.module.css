@@ -6,7 +6,13 @@
 }
 
 .logo{
-    grid-area: logo
+    grid-area: logo;
+    cursor: pointer;
+    transition: 0.35s;
+}
+
+.logo:hover{
+    transform: scale(1.05);
 }
 
 .mainHeader{
@@ -45,10 +51,11 @@
     margin: auto 0px;
     padding: 3px 30px;
     cursor: pointer;
-    transition: 0.2s;
+    transition: 0.35s;
 }
 
 .signOutButton:hover{
+    background-color: black;
     transform:scale(1.05)
 }
 

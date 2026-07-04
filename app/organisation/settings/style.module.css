@@ -130,7 +130,7 @@
 .primaryButton{
 
     background:#2563eb;
-
+    transition: 0.35s;
     color:white;
 
     border:none;
@@ -145,16 +145,10 @@
 
 }
 
-.primaryButton:hover{
-
-    background:#1d4ed8;
-
-}
-
 .removeButton{
 
     background:#dc2626;
-
+    transition: 0.35s;
     color:white;
 
     border:none;
@@ -166,12 +160,6 @@
         14px;
 
     cursor:pointer;
-
-}
-
-.removeButton:hover{
-
-    background:#b91c1c;
 
 }
 
@@ -218,13 +206,13 @@
         24px;
 
     border-radius:12px;
-
+    transition: 0.35s;
     cursor:pointer;
 
 }
 
-.dangerButton:hover{
-
-    background:#b91c1c;
+.dangerButton:hover, .removeButton:hover, .primaryButton:hover{
+    transform: scale(1.05);
+    background:black;
 
 }

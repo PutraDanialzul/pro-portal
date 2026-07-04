@@ -19,7 +19,7 @@
 
     background-color: #C61116;
     color: white;
-
+    transition: 0.35s;
     font-weight: bold;
 }
 
@@ -142,6 +142,17 @@
     border-radius: 12px;
 
     margin-bottom: 20px;
+
+    animation: errBannerEnter 0.5s;
+}
+
+@keyframes errBannerEnter{
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
 }
 
 .formSection{
@@ -158,7 +169,7 @@
 
 .backButton{
     background-color: #666;
-
+    transition: 0.35s;
     color: white;
 
     border: none;
@@ -215,13 +226,13 @@
         8px 16px;
 
     cursor:pointer;
-
+    transition: 0.35s;
     font-weight:bold;
 }
 
-.deleteButton:hover{
-
+.deleteButton:hover, .createButton:hover, .backButton:hover{
+    transform: scale(1.05);
     background-color:
-        #b91c1c;
+        black;
 
 }

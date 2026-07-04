@@ -9,7 +9,11 @@
     overflow: hidden;
     text-align: center;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    animation-duration: 0.5s;
+    animation-name: windowEnter;
 }
+
+
 
 .textInput{
     background-color: #ced9e2;
@@ -25,14 +29,19 @@
     border-radius: 100px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: large;
+    transition: 0.35s;
+}
+
+.textInput:focus{
+    transform: scale(1.05);
 }
 
 .continueButton{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
-    background:#2563eb;
+    background:#577b99;
     color:white;
-
+    transition: 0.35s;
     border: none;
     font-size: larger;
     padding: 10px 0px;
@@ -47,7 +56,8 @@
 }
 
 .continueButton:hover{
-    background:#1d4ed8;
+    background-color: black;
+    transform: scale(1.05);
 }
 
 
@@ -56,7 +66,18 @@
     width: 100%;
     background-color: red;
     padding: 10px 0px;
+    animation: errBannerEnter 0.5s;
 }
+
+@keyframes errBannerEnter{
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
 .signOutButton{
     font-family:
         'Franklin Gothic Medium',

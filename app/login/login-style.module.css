@@ -8,6 +8,19 @@
     margin-bottom: 50px;
     overflow: hidden;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    animation-duration: 0.5s;
+    animation-name: windowEnter;
+}
+
+@keyframes windowEnter{
+    0% {
+        transform: scaleY(0);
+        opacity: 0;
+    }
+    100% {
+        transform: scaleY(100%);
+        opacity: 1;
+    }
 }
 
 .flexContainer{
@@ -76,4 +89,14 @@
     font-size: large;
     margin: 0px;
     padding: 10px;
+    animation: errBannerEnter 0.5s;
+}
+
+@keyframes errBannerEnter{
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
 }

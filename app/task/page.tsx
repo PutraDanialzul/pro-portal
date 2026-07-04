@@ -63,19 +63,33 @@ export default function TaskPage() {
                         { ascending: false }
                     );
 
-            let tasks:Task[] = taskData.data ?? [];
-            tasks.forEach(async (value, index)=>{
-                const assignedUserId = value.assigned_user_id;
-                const profileData = await supabaseClient.from("profile").select("display_name").eq("user_id", assignedUserId).maybeSingle();
-                if(!profileData.data){
-                    tasks[index].assigned_user_id = "null";
-                    alert("null");
-                    return;
-                }
-                tasks[index].assigned_to = profileData.data.display_name;
-            });
+            const taskList:Task[] = taskData.data ?? [];
+            const userIds:string[] = taskList.map(
+                task => task.assigned_user_id
+            );
+            const profileData = await supabaseClient.from("profile").select("user_id, display_name").in("user_id", userIds);
             
-            setTasks(tasks ?? []);
+            const profileMap =
+                new Map(
+                    profileData.data?.map(
+                        profile => [
+                            profile.user_id,
+                            profile.display_name
+                        ]
+                    )
+                );
+            
+            const tasksWithNames =
+                taskList.map(task => ({
+                    ...task,
+                    assigned_to:
+                        profileMap.get(
+                            task.assigned_user_id
+                        ) ?? "Unknown"
+                }));
+
+
+            setTasks(tasksWithNames ?? []);
             setLoading(false);
         }
 

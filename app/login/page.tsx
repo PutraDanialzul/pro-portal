@@ -14,15 +14,20 @@ export default function LoginPage(){
 
     async function login(event:React.SubmitEvent<HTMLFormElement>){
         event.preventDefault();
+        setError("");
         const formData = new FormData(event.currentTarget);
         const email = formData.get("email");
         const password = formData.get("password");
+        if(!email.toString().trim() || !password.toString().trim()){
+            setError("Error: Email or password cannot be blank.");
+            return;
+        }
         const { data, error } = await supabaseClient.auth.signInWithPassword({
             email: email as string,
             password: password as string,
         });
         if(error){
-            setError("Error: " + error.message);
+            setError("Error: " + error.message+".");
         }
         else{
             router.replace("/dashboard");
@@ -51,8 +56,8 @@ export default function LoginPage(){
                 <div className={styles.rightContent}>
                     <h1>Login Page</h1>
                     <form onSubmit={login}>
-                        <input type="email" name="email" className={styles.textInput} id="email" placeholder="Email" required></input>
-                        <input type="password" name="password" className={styles.textInput} id="password" placeholder="Password" required></input>
+                        <input type="email" name="email" className={styles.textInput} id="email" placeholder="Email"></input>
+                        <input type="password" name="password" className={styles.textInput} id="password" placeholder="Password"></input>
                         <input type="submit" className={styles.loginButton} value="Log In"></input>
                     </form>
                     <center>

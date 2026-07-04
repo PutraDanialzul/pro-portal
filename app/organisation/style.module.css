@@ -25,14 +25,19 @@
     border-radius: 100px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: large;
+    transition: 0.35s;
+}
+
+.textInput:focus{
+    transform: scale(1.05);
 }
 
 .continueButton{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
-    background:#2563eb;
+    background:#577b99;
     color:white;
-
+    transition: 0.35s;
     border: none;
     font-size: larger;
     padding: 10px 0px;
@@ -46,8 +51,9 @@
     cursor: pointer;
 }
 
-.continueButton:hover{
-    background:#1d4ed8;
+.continueButton:hover, .signOutButton:hover{
+    background:black;
+    transform: scale(1.05);
 }
 
 .errorBanner{
@@ -55,8 +61,20 @@
     width: 100%;
     background-color: red;
     padding: 10px 0px;
+    animation: errorBannerEnter 0.5s;
 }
+
+@keyframes errorBannerEnter{
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
 .signOutButton{
+    transition: 0.35s;
     font-family:
         'Franklin Gothic Medium',
         'Arial Narrow',

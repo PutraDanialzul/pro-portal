@@ -16,10 +16,10 @@ export default function SignUpPage() {
     async function createAccount(
         event: SubmitEvent<HTMLFormElement>
     ) {
+        setError("");
 
         event.preventDefault();
 
-        setError("");
 
         const formData = new FormData(
             event.currentTarget
@@ -36,6 +36,11 @@ export default function SignUpPage() {
         const confirmPassword = String(
             formData.get("confirm-password")
         );
+
+        if(!email.trim() || !password.trim() || !confirmPassword.trim()){
+            setError("Error: All forms need to be completed.");
+            return;
+        }
 
         if (password !== confirmPassword) {
 
@@ -112,7 +117,6 @@ export default function SignUpPage() {
                     className={styles.textInput}
                     name="email"
                     placeholder="Email Address"
-                    required
                 />
 
                 <input
@@ -120,7 +124,6 @@ export default function SignUpPage() {
                     className={styles.textInput}
                     name="password"
                     placeholder="Password"
-                    required
                 />
 
                 <input
@@ -128,7 +131,6 @@ export default function SignUpPage() {
                     className={styles.textInput}
                     name="confirm-password"
                     placeholder="Confirm Password"
-                    required
                 />
 
                 <input

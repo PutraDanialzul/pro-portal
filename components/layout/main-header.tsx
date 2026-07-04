@@ -6,7 +6,7 @@ import NavigationBar from "./navigation-bar";
 import Logo from "../../logo.png";
 
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { hidePath } from "../../lib/hide-list";
@@ -15,11 +15,16 @@ import { supabaseClient } from "../../lib/supabase";
 export default function MainHeader() {
 
     const pathname = usePathname();
+    const router = useRouter();
 
     const [organisationName, setOrganisationName] =
         useState("Loading...");
 
     const hidden = hidePath.includes(pathname);
+
+    function onClickLogo(){
+        router.push("/");
+    }
 
     useEffect(() => {
 
@@ -70,7 +75,7 @@ export default function MainHeader() {
             loadOrganisation();
         }
 
-    }, [pathname, hidden]);
+    }, [pathname, hidden, router]);
 
     if (hidden) {
         return (
@@ -83,7 +88,7 @@ export default function MainHeader() {
     return (
         <header className={styles.mainHeader}>
 
-            <Image width={100} height={100} alt="The logo of the portal" src={Logo}></Image>
+            <Image onClick={onClickLogo} width={100} height={100} alt="The logo of the portal" className={styles.logo} src={Logo}></Image>
 
             <p className={styles.organisationName}>
                 {organisationName}

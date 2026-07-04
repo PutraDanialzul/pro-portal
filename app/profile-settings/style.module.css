@@ -9,6 +9,18 @@
     overflow: hidden;
     text-align: center;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    animation: windowEnter 0.5s;
+}
+
+@keyframes windowEnter{
+    0% {
+        transform: scaleY(0);
+        opacity: 0;
+    }
+    100% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
 }
 
 .backButton{
@@ -64,7 +76,7 @@
     border-radius: 100px;
 
     width: 90%;
-
+    transition: 0.35s;
     cursor: pointer;
 }
 
@@ -82,6 +94,11 @@
     border-radius: 100px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: large;
+    transition: 0.35s;
+}
+
+.textInput:focus{
+    transform: scale(1.05);
 }
 
 .continueButton{
@@ -99,6 +116,12 @@
     border-radius: 100px;
     width: 90%;
     cursor: pointer;
+    transition: 0.35s;
+}
+
+.continueButton:hover, .rejoinButton:hover{
+    transform: scale(1.05);
+    background: black;
 }
 
 .errorBanner{
