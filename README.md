@@ -343,7 +343,7 @@ All in **one unified platform**.
 
 <div align="center">
 
-**Made with ❤️ by Putra Danialzul**
+**Made with ❤️ by Syntax Terror**
 
 [Report Bug](https://github.com/PutraDanialzul/pro-portal/issues) · [Request Feature](https://github.com/PutraDanialzul/pro-portal/issues)
 
