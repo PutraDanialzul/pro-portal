@@ -14,6 +14,8 @@ interface Task {
     status: string;
     due_date: string;
     created_at: string;
+    assigned_user_id: string;
+    assigned_to: string;
 }
 
 export default function TaskPage() {
@@ -36,21 +38,44 @@ export default function TaskPage() {
                 router.replace("/login");
                 return;
             }
+            const membership =
+                await supabaseClient
+                    .from("membership")
+                    .select("*")
+                    .eq("user_id", user.id)
+                    .maybeSingle();
+
+            if (!membership.data) {
+                router.replace("/organisation");
+                return;
+            }
 
             const taskData =
                 await supabaseClient
                     .from("task")
                     .select("*")
                     .eq(
-                        "assigned_user_id",
-                        user.id
+                        "organisation_id",
+                        membership.data.organisation_id
                     )
                     .order(
                         "created_at",
                         { ascending: false }
                     );
 
-            setTasks(taskData.data ?? []);
+            let tasks:Task[] = taskData.data ?? [];
+            tasks.forEach(async (value, index)=>{
+                const assignedUserId = value.assigned_user_id;
+                const profileData = await supabaseClient.from("profile").select("display_name").eq("user_id", assignedUserId).maybeSingle();
+                if(!profileData.data){
+                    tasks[index].assigned_user_id = "null";
+                    alert("null");
+                    return;
+                }
+                tasks[index].assigned_to = profileData.data.display_name;
+            });
+            
+            setTasks(tasks ?? []);
             setLoading(false);
         }
 
@@ -233,7 +258,11 @@ export default function TaskPage() {
                         </th>
 
                         <th>
-                            Assigned
+                            Assigned To
+                        </th>
+
+                        <th>
+                            Assigned Date
                         </th>
 
                         <th>
@@ -317,6 +346,10 @@ export default function TaskPage() {
                                             
                                             </select>
                                             
+                                        </td>
+
+                                        <td>
+                                            {task.assigned_to}
                                         </td>
                                             
                                         <td>
